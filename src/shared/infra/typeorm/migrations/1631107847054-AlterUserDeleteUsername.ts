@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableColumn } from "typeorm";
+import { MigrationInterface, QueryRunner, TableColumn } from "typeorm";
 
 export class AlterUserDeleteUsername1631107847054
   implements MigrationInterface
@@ -13,6 +13,7 @@ export class AlterUserDeleteUsername1631107847054
       new TableColumn({
         name: "username",
         type: "varchar",
+        isNullable: true,
       })
     );
   }
