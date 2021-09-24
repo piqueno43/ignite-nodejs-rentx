@@ -34,4 +34,5 @@ categoriesRoutes.post(
   upload.single("file"),
   importCategoryController.handle
 );
+
 export { categoriesRoutes };
