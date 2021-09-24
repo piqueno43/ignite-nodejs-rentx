@@ -5,6 +5,7 @@ import { ICarsRepository } from "../ICarsRepository";
 
 class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];
+
   async create({
     brand,
     category_id,
