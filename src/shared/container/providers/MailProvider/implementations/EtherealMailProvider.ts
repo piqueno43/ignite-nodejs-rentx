@@ -7,7 +7,7 @@ import { IMailProvider } from "../IMailProvider";
 
 @injectable()
 class EtherealMailProvider implements IMailProvider {
-  private cliente: Transporter;
+  private client: Transporter;
 
   constructor() {
     nodemailer
@@ -23,13 +23,10 @@ class EtherealMailProvider implements IMailProvider {
           },
         });
 
-        this.cliente = transporter;
+        this.client = transporter;
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.error(err));
   }
-
   async sendMail(
     to: string,
     subject: string,
@@ -42,7 +39,7 @@ class EtherealMailProvider implements IMailProvider {
 
     const templateHTML = templateParse(variables);
 
-    const message = await this.cliente.sendMail({
+    const message = await this.client.sendMail({
       to,
       from: "Rentx <noreplay@rentx.com.br>",
       subject,
