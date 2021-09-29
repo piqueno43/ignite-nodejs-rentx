@@ -1,4 +1,4 @@
-import { container, delay } from "tsyringe";
+import { container } from "tsyringe";
 
 import "@shared/container/providers";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
@@ -18,34 +18,31 @@ import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsReposi
 
 container.registerSingleton<ICategoriesRepository>(
   "CategoriesRepository",
-  delay(() => CategoriesRepository)
+  CategoriesRepository
 );
 
 container.registerSingleton<ISpecificationsRepository>(
   "SpecificationsRepository",
-  delay(() => SpecificationsRepository)
+  SpecificationsRepository
 );
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
-  delay(() => UsersRepository)
+  UsersRepository
 );
 
-container.registerSingleton<ICarsRepository>(
-  "CarsRepository",
-  delay(() => CarsRepository)
-);
+container.registerSingleton<ICarsRepository>("CarsRepository", CarsRepository);
 
 container.registerSingleton<ICarsImagesRepository>(
   "CarsImagesRepository",
-  delay(() => CarsImagesRepository)
+  CarsImagesRepository
 );
 
 container.registerSingleton<IRentalsRepository>(
   "RentalsRepository",
-  delay(() => RentalsRepository)
+  RentalsRepository
 );
 
 container.registerSingleton<IUsersTokensRepository>(
   "UsersTokensRepository",
-  delay(() => UsersTokensRepository)
+  UsersTokensRepository
 );

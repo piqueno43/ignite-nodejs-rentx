@@ -1,9 +1,9 @@
-import { container, delay } from "tsyringe";
+import { container } from "tsyringe";
 
 import { IDateProvider } from "./IDateProvider";
 import { DayjsDateProvider } from "./implementations/DayjsDateProvider";
 
 container.registerSingleton<IDateProvider>(
   "DayjsDateProvider",
-  delay(() => DayjsDateProvider)
+  DayjsDateProvider
 );
