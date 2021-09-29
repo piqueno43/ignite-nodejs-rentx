@@ -1,18 +1,15 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 on:  
   push:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v2
       
@@ -25,15 +22,14 @@ jobs:
         run:  yarn
       
       - name: Build
-        run:  yarn build
-        
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@master
+        run:  yarn build        
+     
+      - uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}          
+          username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
-          key: ${{secrets.SSH_KEY}}
+          key: ${{ secrets.SSH_KEY }} 
           source: "., !node_modules"
-          target: "test"
+          target: "teste"
       
