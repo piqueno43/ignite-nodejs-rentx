@@ -9,5 +9,9 @@
   "entities": ["./src/modules/**/entities/*.ts"],
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"
-  }
+  },
+  "outDir": "./dist",
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
+  "sourceMap": true
 }
