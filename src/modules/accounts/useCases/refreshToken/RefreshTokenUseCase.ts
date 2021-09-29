@@ -2,7 +2,6 @@ import { sign, verify } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
 import auth from "@config/auth";
-import { UserTokens } from "@modules/accounts/infra/typeorm/entities/UserTokens";
 import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
@@ -26,8 +25,10 @@ class RefreshTokenUseCase {
     private dateProvider: IDateProvider
   ) {}
 
-  async execute(token: string): Promise<string> {
+  async execute(token: string): Promise<ITokenResponse> {
     const {
+      secret_token,
+      expires_in_token,
       secret_refresh_token,
       expires_refresh_token_days,
       expires_in_refresh_token,
@@ -43,7 +44,7 @@ class RefreshTokenUseCase {
       );
 
     if (!userToken) {
-      throw new AppError("Refresh token does not exist");
+      throw new AppError("Refresh token does not exists!");
     }
 
     await this.usersTokensRepository.deleteById(userToken.id);
@@ -61,7 +62,15 @@ class RefreshTokenUseCase {
       user_id,
     });
 
-    return refresh_token;
+    const newToken = sign({ email }, secret_token, {
+      subject: user_id,
+      expiresIn: expires_in_token,
+    });
+
+    return {
+      refresh_token,
+      token: newToken,
+    };
   }
 }
 
